@@ -1,0 +1,28 @@
+#!/bin/bash
+
+help()
+{
+  echo ""
+  echo "Usage: $0 -g -r"
+  echo -e "\t-g Compile protobuf for go"
+  echo -e "\t-r Compile protobuf for ruby"
+  exit 1
+}
+
+while getopts "gr" opt
+do
+  case "$opt" in
+    g ) lang="go" ;;
+    r ) lang="ruby" ;;
+    ? ) help ;;
+  esac
+done
+
+if [[ $lang = "go" ]]; then
+  protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/*.proto
+elif [[ $lang = "ruby" ]]; then
+  grpc_tools_ruby_protoc -I ./proto --ruby_out=proto --grpc_out=proto ./proto/*.proto
+else
+  echo "Some or all of the parameters are empty"
+  help
+fi

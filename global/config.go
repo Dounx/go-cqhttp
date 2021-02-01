@@ -111,6 +111,15 @@ var DefaultConfigWithComments = `
             reverse_reconnect_interval: 3000
         }
     ]
+    // RPC设置
+    rpc_config: {
+        // 是否启用RPC服务器
+        enabled: false
+        // 服务端监听地址
+        host: 0.0.0.0
+        // 服务端监听端口
+        port: 7700
+    }
     // 上报数据类型
     // 可选: string array
     post_message_format: string
@@ -160,6 +169,7 @@ type JSONConfig struct {
 	HeartbeatInterval   time.Duration                 `json:"heartbeat_interval"`
 	HTTPConfig          *GoCQHTTPConfig               `json:"http_config"`
 	WSConfig            *GoCQWebSocketConfig          `json:"ws_config"`
+	RPCConfig           *GoCQRPCConfig                `json:"rpc_config"`
 	ReverseServers      []*GoCQReverseWebSocketConfig `json:"ws_reverse_servers"`
 	PostMessageFormat   string                        `json:"post_message_format"`
 	UseSSOAddress       bool                          `json:"use_sso_address"`
@@ -199,6 +209,13 @@ type GoCQHTTPConfig struct {
 
 //GoCQWebSocketConfig 正向WebSocket对应Config结构体
 type GoCQWebSocketConfig struct {
+	Enabled bool   `json:"enabled"`
+	Host    string `json:"host"`
+	Port    uint16 `json:"port"`
+}
+
+//GoCQRPCConfig RPC对应Config结构体
+type GoCQRPCConfig struct {
 	Enabled bool   `json:"enabled"`
 	Host    string `json:"host"`
 	Port    uint16 `json:"port"`

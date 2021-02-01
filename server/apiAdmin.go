@@ -452,6 +452,9 @@ func (s *webServer) UpServer() {
 	if conf.WSConfig != nil && conf.WSConfig.Enabled {
 		go WebSocketServer.Run(fmt.Sprintf("%s:%d", conf.WSConfig.Host, conf.WSConfig.Port), conf.AccessToken, s.bot)
 	}
+	if conf.RPCConfig != nil && conf.RPCConfig.Enabled {
+		go RPCServer.Run(fmt.Sprintf("%s:%d", conf.RPCConfig.Host, conf.RPCConfig.Port), conf.AccessToken, s.bot)
+	}
 	for _, rc := range conf.ReverseServers {
 		go NewWebSocketClient(rc, conf.AccessToken, s.bot).Run()
 	}

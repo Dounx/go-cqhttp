@@ -1,0 +1,692 @@
+syntax = "proto3";
+
+package cq;
+
+option go_package = "proto;api";
+
+// API Doc
+// https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md
+// https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md
+service API {
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_login_info-%E8%8E%B7%E5%8F%96%E7%99%BB%E5%BD%95%E5%8F%B7%E4%BF%A1%E6%81%AF
+    rpc GetLoginInfo(GetLoginInfoRequest) returns (GetLoginInfoResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_friend_list-%E8%8E%B7%E5%8F%96%E5%A5%BD%E5%8F%8B%E5%88%97%E8%A1%A8
+    rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_group_list-%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%88%97%E8%A1%A8
+    rpc GetGroupList(GetGroupListRequest) returns (GetGroupListResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_group_info-%E8%8E%B7%E5%8F%96%E7%BE%A4%E4%BF%A1%E6%81%AF
+    rpc GetGroupInfo(GetGroupInfoRequest) returns (GetGroupInfoResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_group_member_list-%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%88%90%E5%91%98%E5%88%97%E8%A1%A8
+    rpc GetGroupMemberList(GetGroupMemberListRequest) returns (GetGroupMemberListResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_group_member_info-%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%88%90%E5%91%98%E4%BF%A1%E6%81%AF
+    rpc GetGroupMemberInfo(GetGroupMemberInfoRequest) returns (GetGroupMemberInfoResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF
+    rpc GetGroupFileSystemInfo(GetGroupFileSystemInfoRequest) returns (GetGroupFileSystemInfoResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8
+    rpc GetGroupRootFiles(GetGroupRootFilesRequest) returns (GetGroupRootFilesResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%AD%90%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8
+    rpc GetGroupFilesByFolder(GetGroupFilesByFolderRequest) returns (GetGroupFilesByFolderResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%96%87%E4%BB%B6%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5
+    rpc GetGroupFileUrl(GetGroupFileUrlRequest) returns (GetGroupFileUrlResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D
+    rpc GetWordSlices(GetWordSlicesRequest) returns (GetWordSlicesResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#send_group_msg-%E5%8F%91%E9%80%81%E7%BE%A4%E6%B6%88%E6%81%AF
+    rpc SendGroupMessage(SendGroupMessageRequest) returns (SendGroupMessageResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E8%BD%AC%E5%8F%91%E7%BE%A4
+    rpc SendGroupForwardMessage(SendGroupForwardMessageRequest) returns (SendGroupForwardMessageResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#send_private_msg-%E5%8F%91%E9%80%81%E7%A7%81%E8%81%8A%E6%B6%88%E6%81%AF
+    rpc SendPrivateMessage(SendPrivateMessageRequest) returns (SendPrivateMessageResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_card-%E8%AE%BE%E7%BD%AE%E7%BE%A4%E5%90%8D%E7%89%87%E7%BE%A4%E5%A4%87%E6%B3%A8
+    rpc SetGroupCard(SetGroupCardRequest) returns (SetGroupCardResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_special_title-%E8%AE%BE%E7%BD%AE%E7%BE%A4%E7%BB%84%E4%B8%93%E5%B1%9E%E5%A4%B4%E8%A1%94
+    rpc SetGroupSpecialTitle(SetGroupSpecialTitleRequest) returns (SetGroupSpecialTitleResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_name-%E8%AE%BE%E7%BD%AE%E7%BE%A4%E5%90%8D
+    rpc SetGroupName(SetGroupNameRequest) returns (SetGroupNameResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E5%8F%91%E9%80%81%E7%BE%A4%E5%85%AC%E5%91%8A
+    rpc SetGroupNotice(SetGroupNoticeRequest) returns (SetGroupNoticeResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_kick-%E7%BE%A4%E7%BB%84%E8%B8%A2%E4%BA%BA
+    rpc SetGroupKick(SetGroupKickRequest) returns (SetGroupKickResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_ban-%E7%BE%A4%E7%BB%84%E5%8D%95%E4%BA%BA%E7%A6%81%E8%A8%80
+    rpc SetGroupBan(SetGroupBanRequest) returns (SetGroupBanResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_whole_ban-%E7%BE%A4%E7%BB%84%E5%85%A8%E5%91%98%E7%A6%81%E8%A8%80
+    rpc SetGroupWholeBan(SetGroupWholeBanRequest) returns (SetGroupWholeBanResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_leave-%E9%80%80%E5%87%BA%E7%BE%A4%E7%BB%84
+    rpc SetGroupLeave(SetGroupLeaveRequest) returns (SetGroupLeaveResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%85%A8%E4%BD%93%E6%88%90%E5%91%98%E5%89%A9%E4%BD%99%E6%AC%A1%E6%95%B0
+    rpc GetGroupAtAllRemain(GetGroupAtAllRemainRequest) returns (GetGroupAtAllRemainResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_friend_add_request-%E5%A4%84%E7%90%86%E5%8A%A0%E5%A5%BD%E5%8F%8B%E8%AF%B7%E6%B1%82
+    rpc ProcessFriendRequest(ProcessFriendRequestRequest) returns (ProcessFriendRequestResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_add_request-%E5%A4%84%E7%90%86%E5%8A%A0%E7%BE%A4%E8%AF%B7%E6%B1%82%E9%82%80%E8%AF%B7
+    rpc ProcessGroupRequest(ProcessGroupRequestRequest) returns (ProcessGroupRequestResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#delete_msg-%E6%92%A4%E5%9B%9E%E6%B6%88%E6%81%AF
+    rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_admin-%E7%BE%A4%E7%BB%84%E8%AE%BE%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98
+    rpc SetGroupAdmin(SetGroupAdminRequest) returns (SetGroupAdminResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7vip%E4%BF%A1%E6%81%AF
+    rpc GetVipInfo(GetVipInfoRequest) returns (GetVipInfoResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_group_honor_info-%E8%8E%B7%E5%8F%96%E7%BE%A4%E8%8D%A3%E8%AA%89%E4%BF%A1%E6%81%AF
+    rpc GetGroupHonorInfo(GetGroupHonorInfoRequest) returns (GetGroupHonorInfoResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_stranger_info-%E8%8E%B7%E5%8F%96%E9%99%8C%E7%94%9F%E4%BA%BA%E4%BF%A1%E6%81%AF
+    rpc GetStrangerInfo(GetStrangerInfoRequest) returns (GetStrangerInfoResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/hidden.md#handle_quick_operation-%E5%AF%B9%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8C%E5%BF%AB%E9%80%9F%E6%93%8D%E4%BD%9C
+    rpc HandleQuickOperation(HandleQuickOperationRequest) returns (HandleQuickOperationResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_image-%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87
+    rpc GetImage(GetImageRequest) returns (GetImageResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%88%B0%E7%BC%93%E5%AD%98%E7%9B%AE%E5%BD%95
+    rpc DownloadFile(DownloadFileRequest) returns (DownloadFileResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E5%90%88%E5%B9%B6%E8%BD%AC%E5%8F%91%E5%86%85%E5%AE%B9
+    rpc GetForwardMessage(GetForwardMessageRequest) returns (GetForwardMessageResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_msg-%E8%8E%B7%E5%8F%96%E6%B6%88%E6%81%AF
+    rpc GetMessage(GetMessageRequest) returns (GetMessageResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%BE%A4%E7%B3%BB%E7%BB%9F%E6%B6%88%E6%81%AF
+    rpc GetGroupSystemMessage(GetGroupSystemMessageRequest) returns (GetGroupSystemMessageResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%B6%88%E6%81%AF%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95
+    rpc GetGroupMessageHistory(GetGroupMessageHistoryRequest) returns (GetGroupMessageHistoryResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%B4%A6%E5%8F%B7%E5%9C%A8%E7%BA%BF%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%97%E8%A1%A8
+    rpc GetOnlineClients(GetOnlineClientsRequest) returns (GetOnlineClientsResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#can_send_image-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%8F%91%E9%80%81%E5%9B%BE%E7%89%87
+    rpc CanSendImage(CanSendImageRequest) returns (CanSendImageResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#can_send_record-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%8F%91%E9%80%81%E8%AF%AD%E9%9F%B3
+    rpc CanSendRecord(CanSendRecordRequest) returns (CanSendRecordResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E5%9B%BE%E7%89%87ocr
+    rpc OcrImage(OcrImageRequest) returns (OcrImageResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E9%87%8D%E8%BD%BD%E4%BA%8B%E4%BB%B6%E8%BF%87%E6%BB%A4%E5%99%A8
+    rpc ReloadEventFilter(ReloadEventFilterRequest) returns (ReloadEventFilterResponse) {}
+
+    // https://github.com/Mrs4s/go-cqhttp/blob/master/docs/cqhttp.md#%E8%AE%BE%E7%BD%AE%E7%BE%A4%E5%A4%B4%E5%83%8F
+    rpc SetGroupPortrait(SetGroupPortraitRequest) returns (SetGroupPortraitResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#set_group_anonymous_ban-%E7%BE%A4%E7%BB%84%E5%8C%BF%E5%90%8D%E7%94%A8%E6%88%B7%E7%A6%81%E8%A8%80
+    rpc SetGroupAnonymousBan(SetGroupAnonymousBanRequest) returns (SetGroupAnonymousBanResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_status-%E8%8E%B7%E5%8F%96%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81
+    rpc GetStatus(GetStatusRequest) returns (GetStatusResponse) {}
+
+    // https://github.com/howmanybots/onebot/blob/master/v11/specs/api/public.md#get_version_info-%E8%8E%B7%E5%8F%96%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF
+    rpc GetVersionInfo(GetVersionInfoRequest) returns (GetVersionInfoResponse) {}
+
+    rpc GetEvents(GetEventsResquest) returns (stream Event) {}
+}
+
+// Model
+message Friend {
+    int64 user_id = 1;
+    string nickname = 2;
+    string remark = 3;
+}
+
+message Group {
+    int64 group_id = 1;
+    string group_name = 2;
+    uint32 member_count = 3;
+    uint32 max_member_count = 4;
+}
+
+message GroupMember {
+    int64 group_id = 1;
+    int64 user_id = 2;
+    string nickname = 3;
+    string card = 4;
+    string sex = 5;
+    int32 age = 6;
+    string area = 7;
+    int32 join_time = 8;
+    int32 last_sent_time = 9;
+    string level = 10;
+    string role = 11;
+    bool unfriendly = 12;
+    string title = 13;
+    int32 title_expire_time = 14;
+    bool card_changeable = 15;
+}
+
+message File {
+    string file_id = 1;
+    string file_name = 2;
+    int32 bus_id = 3;
+    int64 file_size = 4;
+    int64 upload_time = 5;
+    int64 dead_time = 6;
+    int64 modify_time = 7;
+    int32 download_times = 8;
+    int64 uploader = 9;
+    string uploader_name = 10;
+}
+
+message Folder {
+    string folder_id = 1;
+    string folder_name = 2;
+    int64 create_time = 3;
+    int64 creator = 4;
+    string creator_name = 5;
+    int32 total_file_count = 6;
+}
+
+message TalkativeItem {
+    int64 user_id = 1;
+    string nickname = 2;
+    string avatar = 3;
+    int32 day_count = 4;
+}
+
+message OtherativeItem {
+    int64 user_id = 1;
+    string nickname = 2;
+    string avatar = 3;
+    string description = 4;
+}
+
+message ForwardMessage {
+    Sender sender = 1;
+    int32 time = 2;
+    string content = 3;
+}
+
+message Sender {
+    int64 user_id = 1;
+    string nickname = 2;
+}
+
+message InvitedRequest {
+    int64 request_id = 1;
+    int64 invitor_uin = 2;
+    string invitor_nick = 3;
+    int64 group_id = 4;
+    string group_name = 5;
+    bool checked = 6;
+    int64 actor = 7;
+}
+
+message JoinRequest {
+    int64 request_id = 1;
+    int64 requester_uin = 2;
+    string requester_nick = 3;
+    string message = 4;
+    int64 group_id = 5;
+    string group_name = 6;
+    bool checked = 7;
+    int64 actor = 8;
+}
+
+message Device {
+    int64 app_id = 1;
+    string device_name = 2;
+    string device_kind = 3;
+}
+
+message TextDetection {
+    string text = 1;
+    int32 confidence = 2;
+    Coordinate coordinate = 3;
+}
+
+message Coordinate {
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message Statistics {
+    uint64 packet_received = 1;
+    uint64 packet_sent = 2;
+    uint64 packet_lost = 3;
+    uint64 message_received = 4;
+    uint64 message_sent = 5;
+    uint32 disconnect_times = 6;
+    uint32 lost_times = 7;
+}
+
+// Params
+message GetLoginInfoRequest {}
+
+message GetLoginInfoResponse {
+    int64 user_id = 1;
+    string nickname = 2;
+}
+
+message GetFriendListRequest {}
+
+message GetFriendListResponse {
+    repeated Friend friends = 1;
+}
+
+message GetGroupListRequest {
+    bool no_cache = 1;
+}
+
+message GetGroupListResponse {
+    repeated Group groups = 1;
+}
+
+message GetGroupInfoRequest {
+    int64 group_id = 1;
+    bool no_cache = 2;
+}
+
+message GetGroupInfoResponse {
+    Group group = 1;
+}
+
+message GetGroupMemberListRequest {
+    int64 group_id = 1;
+    bool no_cache = 2;
+}
+
+message GetGroupMemberListResponse {
+    repeated GroupMember group_members = 1;
+}
+
+message GetGroupMemberInfoRequest {
+    int64 group_id = 1;
+    int64 user_id = 2;
+    bool no_cache = 3;
+}
+
+message GetGroupMemberInfoResponse {
+    GroupMember group_member = 1;
+}
+
+message GetGroupFileSystemInfoRequest {
+    int64 group_id = 1;
+}
+
+message GetGroupFileSystemInfoResponse {
+    int32 file_count = 1;
+    int32 limit_count = 2;
+    int64 used_space = 3;
+    int64 total_space = 4;
+}
+
+message GetGroupRootFilesRequest {
+    int64 group_id = 1;
+}
+
+message GetGroupRootFilesResponse {
+    repeated File files = 1;
+    repeated Folder folders = 2;
+}
+
+message GetGroupFilesByFolderRequest {
+    int64 group_id = 1;
+    string folder_id = 2;
+}
+
+message GetGroupFilesByFolderResponse {
+    repeated File files = 1;
+    repeated Folder folders = 2;
+}
+
+message GetGroupFileUrlRequest {
+    int64 group_id = 1;
+    string file_id = 2;
+    int32 bus_id = 3;
+}
+
+message GetGroupFileUrlResponse {
+    string url = 1;
+}
+
+message GetWordSlicesRequest {
+    string content = 1;
+}
+
+message GetWordSlicesResponse {
+    repeated string slices = 1;
+}
+
+message SendGroupMessageRequest {
+    int64 group_id = 1;
+    string message = 2;
+    bool auto_escape = 3;
+}
+
+message SendGroupMessageResponse {
+    int32 message_id = 1;
+}
+
+message SendGroupForwardMessageRequest {
+    int64 group_id = 1;
+    string messages = 2;
+}
+
+message SendGroupForwardMessageResponse {
+    int32 message_id = 1;
+}
+
+message SendPrivateMessageRequest {
+    int64 user_id = 1;
+    string message = 2;
+    bool auto_escape = 3;
+}
+
+message SendPrivateMessageResponse {
+    int32 message_id = 1;
+}
+
+message SetGroupCardRequest {
+    int64 group_id = 1;
+    int64 user_id = 2;
+    string card = 3;
+}
+
+message SetGroupCardResponse {}
+
+message SetGroupSpecialTitleRequest {
+    int64 group_id = 1;
+    int64 user_id = 2;
+    string special_title = 3;
+}
+
+message SetGroupSpecialTitleResponse {}
+
+message SetGroupNameRequest {
+    int64 group_id = 1;
+    string group_name = 2;
+}
+
+message SetGroupNameResponse {}
+
+message SetGroupNoticeRequest {
+    int64 group_id = 1;
+    string content = 2;
+}
+
+message SetGroupNoticeResponse {}
+
+message SetGroupKickRequest {
+    int64 group_id = 1;
+    int64 user_id = 2;
+    string message = 3;
+    bool reject_add_request = 4;
+}
+
+message SetGroupKickResponse {}
+
+message SetGroupBanRequest {
+    int64 group_id = 1;
+    int64 user_id = 2;
+    uint32 duration = 3;
+}
+
+message SetGroupBanResponse {}
+
+message SetGroupWholeBanRequest {
+    int64 group_id = 1;
+    bool enable = 2;
+}
+
+message SetGroupWholeBanResponse {}
+
+message SetGroupLeaveRequest {
+    int64 group_id = 1;
+}
+
+message SetGroupLeaveResponse {}
+
+message GetGroupAtAllRemainRequest {
+    int64 group_id = 1;
+}
+
+message GetGroupAtAllRemainResponse {
+    bool can_at_all = 1;
+    uint32 remain_at_all_count_for_group = 2;
+    uint32 remain_at_all_count_for_uin = 3;
+}
+
+message ProcessFriendRequestRequest {
+    string flag = 1;
+    bool approve = 2;
+}
+
+message ProcessFriendRequestResponse {}
+
+message ProcessGroupRequestRequest {
+    string flag = 1;
+    string sub_type = 2;
+    string reason = 3;
+    bool approve = 4;
+}
+
+message ProcessGroupRequestResponse {}
+
+message DeleteMessageRequest {
+    int32 message_id = 1;
+}
+
+message DeleteMessageResponse {}
+
+message SetGroupAdminRequest {
+    int64 group_id = 1;
+    int64 user_id = 2;
+    bool enable = 3;
+}
+
+message SetGroupAdminResponse {}
+
+message GetVipInfoRequest {
+    int64 user_id = 1;
+}
+
+message GetVipInfoResponse {
+    int64 user_id = 1;
+    string nickname = 2;
+    int32 level = 3;
+    double level_speed = 4;
+    string vip_level = 5;
+    int32 vip_growth_speed = 6;
+    int32 vip_growth_total = 7;
+}
+
+message GetGroupHonorInfoRequest {
+    int64 group_id = 1;
+    string type = 2;
+}
+
+message GetGroupHonorInfoResponse {
+    int64 group_id = 1;
+    repeated TalkativeItem current_talkative = 2;
+    repeated OtherativeItem talkative_list = 3;
+    repeated OtherativeItem performer_list = 4;
+    repeated OtherativeItem legend_list = 5;
+    repeated OtherativeItem strong_newbie_list = 6;
+    repeated OtherativeItem emotion_list = 7;
+}
+
+message GetStrangerInfoRequest {
+    int64 user_id = 1;
+}
+
+message GetStrangerInfoResponse {
+    int64 user_id = 1;
+    string nickname = 2;
+    string qid = 3;
+    string sex = 4;
+    int32 age = 5;
+    int32 level = 6;
+    int64 login_days = 7;
+}
+
+message HandleQuickOperationRequest {
+    string context = 1;
+    string operation = 2;
+}
+
+message HandleQuickOperationResponse {}
+
+message GetImageRequest {
+    string file = 1;
+}
+
+message GetImageResponse {
+    int32 size = 1;
+    string filename = 2;
+    string url = 3;
+}
+
+message DownloadFileRequest {
+    string url = 1;
+    int64 thread_count = 2;
+    map<string, string> headers = 3;
+}
+
+message DownloadFileResponse {
+    string file = 1;
+}
+
+message GetForwardMessageRequest {
+    string message_id = 1;
+}
+
+message GetForwardMessageResponse {
+    repeated ForwardMessage messages = 1;
+}
+
+message GetMessageRequest {
+    int32 message_id = 1;
+}
+
+message GetMessageResponse {
+    int32 message_id = 1;
+    int32 real_id = 2;
+    Sender sender = 3;
+    int32 time = 4;
+    string message = 5;
+}
+
+message GetGroupSystemMessageRequest {}
+
+message GetGroupSystemMessageResponse {
+    repeated InvitedRequest invited_requests = 1;
+    repeated JoinRequest join_requests = 2;
+}
+
+message GetGroupMessageHistoryRequest {
+    int64 group_id = 1;
+    int64 message_seq = 2;
+}
+
+message GetGroupMessageHistoryResponse {
+    repeated string messages = 1;
+}
+
+message GetOnlineClientsRequest {
+    bool no_cache = 1;
+}
+
+message GetOnlineClientsResponse {
+    repeated Device clients = 1;
+}
+
+message CanSendImageRequest {}
+
+message CanSendImageResponse {
+    bool yes = 1;
+}
+
+message CanSendRecordRequest {}
+
+message CanSendRecordResponse {
+    bool yes = 1;
+}
+
+message OcrImageRequest {
+    string image = 1;
+}
+
+message OcrImageResponse {
+    repeated TextDetection texts = 1;
+    string language = 2;
+}
+
+message ReloadEventFilterRequest {}
+
+message ReloadEventFilterResponse {}
+
+message SetGroupPortraitRequest {
+    int64 group_id = 1;
+    string file = 2;
+    string cache = 3;
+}
+
+message SetGroupPortraitResponse {}
+
+message SetGroupAnonymousBanRequest {
+    int64 group_id = 1;
+    string flag = 2;
+    int32 duration = 3;
+}
+
+message SetGroupAnonymousBanResponse {}
+
+message GetStatusRequest {}
+
+message GetStatusResponse {
+    bool app_initialized = 1;
+    bool app_enabled = 2;
+    bool plugins_good = 3;
+    bool app_good = 4;
+    bool online = 5;
+    bool good = 6;
+    Statistics stat = 7;
+}
+
+message GetVersionInfoRequest {}
+
+message GetVersionInfoResponse {
+    string coolq_directory = 1;
+    string coolq_edition = 2;
+    bool go_cqhttp = 3;
+    string plugin_version = 4;
+    int32 plugin_build_number = 5;
+    string plugin_build_configuration = 6;
+    string runtime_version = 7;
+    string runtime_os = 8;
+    string version = 9;
+    int32 protocol = 10;
+}
+
+message GetEventsResquest {}
+
+message Event {
+    string payload = 1;
+}
